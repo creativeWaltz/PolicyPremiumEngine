@@ -3,11 +3,10 @@ class Premium():
     def __init__(self):
         self.amount = 0
         self.currency = "usd"
+        self.rate = 0
 
-    #Calculate the incpetion premium
+    #Calculate the inception premium on a vessel
     def calculate_inception_premium(self,vessel, cover, policy):
-        pass
+        self.amount = policy.duration * policy.rate * vessel.value
+        return self.amount
 
-    #Calculate return for sale
-    def calculate_sell_return(self, vessel, cover, policy):
-        pass

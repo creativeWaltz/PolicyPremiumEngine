@@ -1,8 +1,8 @@
 class CoverType():
     "Creates a cover type for a policy"
-    def __init__(self, name):
+    def __init__(self, name,rate):
         self.name = name
-        self.rate = 0.00
+        self.rate = rate
         self.deductiom = 0.00
 
     #Update the rate
