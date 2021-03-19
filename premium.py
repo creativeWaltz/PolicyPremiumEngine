@@ -1,12 +1,10 @@
-class Premium():
-    "Creates a premium for a vessel for a cover type"
+class Premium:
+    """Creates a premium for a vessel for a cover type"""
     def __init__(self):
-        self.amount = 0
-        self.currency = "usd"
-        self.rate = 0
+        self.premiums = []
 
-    #Calculate the inception premium on a vessel
-    def calculate_inception_premium(self,vessel, cover, policy):
-        self.amount = policy.duration * policy.rate * vessel.value
-        return self.amount
-
+    # Calculate the inception premium on a vessel
+    def calculate_inception_premium(self, policy):
+        for cover in policy.covers:
+            for asset in policy.assets:
+                self.premiums.append(round((cover.rate/100/365)*asset.value*policy.days, 2))

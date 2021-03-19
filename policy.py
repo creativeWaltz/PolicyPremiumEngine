@@ -1,34 +1,38 @@
 import datetime
 
-class Policy():
-    "Creates a policy"
-    def __init__(self, name,start_date, end_date):
+
+class Policy:
+    """Creates a policy"""
+    def __init__(self, name, start_date, end_date):
         self.name = name
-        self.start_date = datetime.datetime.strptime(start_date,"%d/%m/%Y")
-        self.end_date = datetime.datetime.strptime(end_date,"%d/%m/%Y")
+        self.start_date = datetime.datetime.strptime(start_date, "%d/%m/%Y")
+        self.end_date = datetime.datetime.strptime(end_date, "%d/%m/%Y")
         self.currency = "usd"
         self.created_at_utc = datetime.datetime.utcnow()
-        self.duration = self.end_date - self.start_date
+        self.duration = (self.end_date - self.start_date)
+        self.days = self.duration.days
         self.assets = []
         self.premiums = []
         self.covers = []
 
     def total_assets(self):
         count_assets = 0
-        for asset in self.assets:
-            count_assets +=1
+        for i in self.assets:
+            count_assets += 1
         return count_assets
 
     def sum_premium(self):
         sum_premium = 0
+        for premium in self.premiums:
+            sum_premium += premium
 
-    def update_name(self,name):
+    def update_name(self, name):
         self.name = name
 
-    def add_assets(self,vessel):
+    def add_assets(self, vessel):
         self.assets.extend(vessel)
 
-    def add_covers(self,covers):
+    def add_covers(self, covers):
         self.covers.extend(covers)
 
     def display_details(self):
@@ -38,7 +42,7 @@ class Policy():
         print("Currency: ", self.currency.upper())
         print("Created: ", self.created_at_utc)
         print("Duration: ", self.duration)
-        print("Total Assets:",self.total_assets())
+        print("Total Assets:", self.total_assets())
         print("Assets: ")
         for asset in self.assets:
             print(f"\t{asset.name}")
@@ -46,3 +50,8 @@ class Policy():
         for cover in self.covers:
             print(f"\t{cover.name} {cover.rate}% ")
         print("Premiums: ", self.premiums)
+
+    def calculate_premiums(self):
+        for cover in self.covers:
+            for asset in self.assets:
+                self.premiums.append(round((cover.rate/100/365)*asset.value*self.days, 2))
