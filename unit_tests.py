@@ -19,12 +19,21 @@ class VesselCreationAndMethodTests(unittest.TestCase):
         self.assertEqual(self.t_vessel.owned, False)
         self.assertEqual(self.t_vessel.version, 1)
 
-    def test_asset_name_change(self):
-        self.t_vessel.update_name("HMS Dog","21/12/2020")
-        self.assertEqual(self.t_vessel.name, "HMS Dog")
-        self.assertEqual(self.t_vessel.version, 2)
-        self.assertNotEqual(self.t_vessel.name_date,"21/12/2020")
+    def test_asset_valuation_change_not_allowed_before_current_date(self):
+        self.t_vessel.update_value(20_000_000, "20/03/2021")
+        self.assertEqual(self.t_vessel.version, 1)
+        self.assertEqual(self.t_vessel.value,10_000_000)
 
+    def test_asset_valuation_same_date_not_allowed(self):
+        self.t_vessel.update_value(30_000_000, "21/03/2021")
+        self.assertEqual(self.t_vessel.version, 1)
+        self.assertEqual(self.t_vessel.value, 10_000_000)
+
+
+    def test_asset_valuation_same_amount_not_allowed(self):
+        self.t_vessel.update_value(10_000_000, "21/03/2021")
+        self.assertEqual(self.t_vessel.version, 1)
+        self.assertEqual(self.t_vessel.value, 10_000_000)
 
 
 

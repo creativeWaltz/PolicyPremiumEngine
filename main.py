@@ -26,3 +26,12 @@ maersk_policy.display_details()
 new_vessel = vessel.Vessel("Martin", "12345678", 20_000_000)
 
 print(new_vessel.value_date)
+
+new_vessel.update_value(10_000_000, "21/03/2021")
+
+print(new_vessel.value)
+
+new_vessel.update_value(30_000_000, "21/03/2021")
+print(new_vessel.value)
+print(new_vessel.version)
+
