@@ -15,34 +15,30 @@ class VesselCreationAndMethodTests(unittest.TestCase):
         self.assertEqual(self.t_vessel.version, 1)
 
     def test_asset_gets_sold(self):
-        self.t_vessel.sell()
+        self.t_vessel.sell("30/03/2021")
         self.assertEqual(self.t_vessel.owned, False)
         self.assertEqual(self.t_vessel.version, 1)
 
     def test_asset_valuation_change_not_allowed_before_current_date(self):
         self.t_vessel.update_value(20_000_000, "20/03/2021")
         self.assertEqual(self.t_vessel.version, 1)
-        self.assertEqual(self.t_vessel.value,10_000_000)
+        self.assertEqual(self.t_vessel.value, 10_000_000)
 
     def test_asset_valuation_same_date_not_allowed(self):
         self.t_vessel.update_value(30_000_000, "21/03/2021")
         self.assertEqual(self.t_vessel.version, 1)
         self.assertEqual(self.t_vessel.value, 10_000_000)
 
-
     def test_asset_valuation_same_amount_not_allowed(self):
         self.t_vessel.update_value(10_000_000, "21/03/2021")
         self.assertEqual(self.t_vessel.version, 1)
         self.assertEqual(self.t_vessel.value, 10_000_000)
 
-
-
-
-
-
-
-
-
+    def test_change_value_on_sold_asset(self):
+        self.t_vessel.sell("22/03/2021")
+        self.t_vessel.update_value(10_000_000, "30/03/2021")
+        self.assertEqual(self.t_vessel.value, 10_000_000)
+        self.assertEqual(self.t_vessel.version, 1)
 
 
 if __name__ == '__main__':
