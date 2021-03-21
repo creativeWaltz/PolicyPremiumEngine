@@ -2,7 +2,7 @@ import unittest
 import vessel
 
 
-class VesselCreationTests(unittest.TestCase):
+class VesselCreationAndMethodTests(unittest.TestCase):
     def setUp(self) -> None:
         self.t_vessel = vessel.Vessel("HMS Ship", "91234567", 10_000_000)
 
@@ -14,14 +14,22 @@ class VesselCreationTests(unittest.TestCase):
         self.assertEqual(self.t_vessel.owned, True)
         self.assertEqual(self.t_vessel.version, 1)
 
-    def test_asset_owned(self):
-        """test the asset ownership is True"""
-        pass
+    def test_asset_gets_sold(self):
+        self.t_vessel.sell()
+        self.assertEqual(self.t_vessel.owned, False)
+        self.assertEqual(self.t_vessel.version, 1)
+
+    def test_asset_name_change(self):
+        self.t_vessel.update_name("HMS Dog","21/12/2020")
+        self.assertEqual(self.t_vessel.name, "HMS Dog")
+        self.assertEqual(self.t_vessel.version, 2)
+        self.assertNotEqual(self.t_vessel.name_date,"21/12/2020")
 
 
-    def test_version_number_1_at_creation(self):
-        """check version number is one when created"""
-        pass
+
+
+
+
 
 
 

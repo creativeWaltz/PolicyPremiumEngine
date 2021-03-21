@@ -22,3 +22,7 @@ maersk_policy.display_details()
 # calculate the premiums on the program
 maersk_policy.calculate_premiums()
 maersk_policy.display_details()
+
+new_vessel = vessel.Vessel("Martin", "12345678", 20_000_000)
+
+print(new_vessel.value_date)
